@@ -1,2 +1,2 @@
-def lagrange():
+def lagrange(x, y):
     pass

@@ -1,2 +1,2 @@
-def gauss_seidel():
-    pass
+def gauss_seidel(A, b, eps):
+    return
