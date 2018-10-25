@@ -2,13 +2,30 @@ from gauss_seidel import gauss_seidel
 from lagrange import lagrange
 from lu_decomposition import lu_decomposition
 
-import numpy as np
-
 def do():
-    # Recebe matriz A1 e vetor b1
-    # Recebe matriz A2 e vetor b2
-    # Recebe precisão epsilon
+    # Para ambos os sistemas, cria a matriz A, o vetor b e recebe os seus respectivos valores
+    # Sistema 1
+    A1 = []
+    b1 = []
+    samples = int(input("Enter number of samples: "))
+    for i in range(samples):
+        A1.append(input("Enter values of row %s in A1: " % i + 1).split(" "))
+    b1 = input("Enter values of b1: ").split(" ")
 
-    # Calcula pontos amostrais ordenados com as poluições calculadas
-    # respectivamente, ponto em que que se encontra a cidade e seu grau de poluição
-    pass
+    # Sistema 2
+    A2 = []
+    b2 = []
+    for i in range(samples):
+        A2.append(input("Enter values of row %s in A2: " % i + 1).split(" "))
+    b2 = input("Enter values of b2: ").split(" ")
+
+    # Recebe o valor da precisão
+    eps = float(input("Enter precision: "))
+
+    x1 = lu_decomposition(A1, b1)
+    x2 = gauss_seidel(A2, b2)
+    f = lagrange(x1, x2)
+
+    # to-do:
+    #   calcular ponto central - onde se encontra a cidade
+    #   calcular grau de poluição da cidade a partir do resultado de lagrange 
