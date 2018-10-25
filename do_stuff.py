@@ -9,15 +9,15 @@ def do():
     b1 = []
     samples = int(input("Enter number of samples: "))
     for i in range(samples):
-        A1.append(input("Enter values of row %s in A1: " % str(i + 1)).split(" "))
-    b1 = input("Enter values of b1: ").split(" ")
+        A1.append([float(x) for x in (input("Enter values of row %s in A1: " % str(i + 1)).split(" "))])
+    b1 = [float(x) for x in input("Enter values of b1: ").split(" ")]
 
     # Sistema 2
     A2 = []
     b2 = []
     for i in range(samples):
-        A2.append(input("Enter values of row %s in A2: " % str(i + 1)).split(" "))
-    b2 = input("Enter values of b2: ").split(" ")
+        A2.append([float(x) for x in (input("Enter values of row %s in A2: " % str(i + 1)).split(" "))])
+    b2 = [float(x) for x in input("Enter values of b2: ").split(" ")]
 
     # Recebe o valor da precisão
     eps = float(input("Enter precision: "))
