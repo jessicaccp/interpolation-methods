@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-def sassenfeld(A):
+def check_convergence(A):
     n = len(A)
     A_modified = list(map(list, A))
     B = [Decimal(0.0) for _ in range(n)]
@@ -14,13 +14,21 @@ def sassenfeld(A):
             A_modified[rows][row] *= B[row]
 
     if max(B) < 1:
-        return A
-    
-    print("Não converge")
-    while max(B) >= 1:
-        pass
+        return True
+    return False
 
-    # print()
-    # print([[float(A[i][j]) for j in range(n)] for i in range(n)])
-    # print([[float(A_modified[i][j]) for j in range(n)] for i in range(n)])
-    # print([float(a) for a in B])
+def sassenfeld(A):
+    n = len(A)
+
+    if check_convergence(A):
+        return A
+
+    for a in range(n - 1):
+        for b in range(a + 1, n):
+            A[a], A[b] = A[b], A[a]
+            if check_convergence(A):
+                return A
+            A[a], A[b] = A[b], A[a]
+
+    print("Matriz não converge.")
+    exit()
