@@ -16,7 +16,7 @@ def gauss_seidel(n, A, b, eps, iter_max, ):
 
     while True:
         k = k + 1
-        
+        v = []
         for i in range (1,n):
             soma = 0
 
@@ -33,5 +33,6 @@ def gauss_seidel(n, A, b, eps, iter_max, ):
 
     return x
 
-def calcula_norma(n, x, v):    
+def calcula_norma(n, x, v):  
+    return 1
     
