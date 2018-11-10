@@ -24,7 +24,7 @@ def gauss_seidel(n, A, b, eps, iter_max):
       
         k = k + 1
         # Vetor que armazena os valores de x encontrados
-        v = []
+        v = [0] * len(b)
 
         # Percorre todas as linhas da matriz
         for i in range (0,n):
