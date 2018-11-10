@@ -28,7 +28,7 @@ def check_convergence(A):
     return max(B) < 1
 
 
-def sassenfeld(A):
+def sassenfeld(A, _b):
     """Modifica a matriz de entrada para uma possível convergência do método
     
     Arguments:
@@ -40,22 +40,24 @@ def sassenfeld(A):
     n = len(A)
 
     if check_convergence(A):
-        return A
+        return A, _b
     for a in range(n - 1):
         for b in range(a + 1, n):
             A[a], A[b] = A[b], A[a]
+            _b[a], _b[b] = _b[b], _b[a]
             if check_convergence(A):
-                return A
+                return A, _b
 
             for c in range(n - 1):
                 for d in range(c + 1, n):
                     for line in A:
                         line[c], line[d] = line[d], line[c]
                     if check_convergence(A):
-                        return A
+                        return A, _b
                     for line in A:
                         line[c], line[d] = line[d], line[c]
 
             A[a], A[b] = A[b], A[a]
+            _b[a], _b[b] = _b[b], _b[a]
 
-    return None
+    return None, None

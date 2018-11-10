@@ -77,7 +77,7 @@ class DoStuff:
 
         b2 = list(map(Decimal, input().split()))
         assert len(b2) == n, 'b first dimension must be ({} x 1), got {}'.format(
-            n, len(b1))
+            n, len(b2))
         assert input() == '##', 'The input file format is wrong, see documentation'
         print('\nOk, now enter the value of the error\n')
         error = Decimal(input())
