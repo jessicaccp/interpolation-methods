@@ -3,36 +3,96 @@ from lagrange import lagrange
 from lu_decomposition import lu_decomposition
 from sort_results import sort_results
 from gs_second_edition import gauss_seidel_se
+from utils import progress_bar
 
 from decimal import Decimal
 
-def do():
-    # Para ambos os sistemas, cria a matriz A, o vetor b e recebe os seus respectivos valores
-    # Sistema 1
-    A1 = []
-    b1 = []
-    samples = int(input("Enter number of samples: "))
-    for i in range(samples):
-        A1.append([Decimal(x) for x in (input("Enter values of row %s in A1: " % str(i + 1)).split(" "))])
-    b1 = [Decimal(x) for x in input("Enter values of b1: ").split(" ")]
+class DoStuff:
+    """Classe DoStuff de métodos estáticos
+    
+    Classe resposável por manipular a entrada de dados de acordo com cada método
+    """
+    
+    @staticmethod
+    def lu_decomposition():
+        """
+        lu_decomposition Método para manipular a entrada da decomposição L.U
+        
+        Este método recebe uma matrix quadrada do usuário e u vetor para fazer
+        a decomposição L.U.
+        """
+        A1 = []
+        b1 = []
+        print('\n\n' + '-'*20 + ' L.U. Decomposition '  + '-'*20 + '\n\n')
+        n = int(input("Enter the square matrix A dimension(n x n):\n"))
+        assert n > 0, 'Matrix A dimension must be more than 0 (n > 0)'
+        for i in range(n):
+            A1.append(list(map(Decimal, input().split())))
+            assert len(A1[i]) == n, 'This is a square matrix! Try again...'
+        print('\nChecking dimensions of A...\n')
+        progress_bar(30)
+        print('\nOk, now enter the values of b vector of dimension ({} x 1):'.format(n))
+        
+        assert input() == '#', 'The input file format is wrong, see documentation'
+        
+        b1 = list(map(Decimal, input().split()))
+        assert len(b1) == n, 'b first dimension must be ({} x 1), got {}'.format(n, len(b1))
 
-    # Sistema 2
-    A2 = []
-    b2 = []
-    for i in range(samples):
-        A2.append([Decimal(x) for x in (input("Enter values of row %s in A2: " % str(i + 1)).split(" "))])
-    b2 = [Decimal(x) for x in input("Enter values of b2: ").split(" ")]
+        print('\nProcessing L.U. decomposition of A...\n')
+        progress_bar(20)
+        x1 = lu_decomposition(A1, b1)
 
-    # Recebe o valor da precisão
-    eps = Decimal(input("Enter precision: "))
+        print('\nGot it!\n\nLet\'s check!\n')
+        for i in range(n):
+            print('x{} ='.format(i), x1[i])
 
-    x1 = lu_decomposition(A1, b1)
-    x2 = gauss_seidel_se(samples, A2, b2, eps)
-    print(x2)
-    #x1, x2 = sort_results(x1, x2)
+    @staticmethod
+    def lagrange():
+        """
+        lagrange Método para manipular a entrada do método Interpolador de Lagrange
+        
+        Este método recebe uma lista de x's e p(x)'s e calcula a interpolação
+        """
+        print('\n\n' + '-'*20 + ' Lagrange interpolation '  + '-'*20 + '\n\n')
+        x = list(map(float, input("Enter the values of x:\n").split()))
+        y = list(map(float, input("Enter the values of p(x):\n").split()))
+        assert len(x) == len(y), 'Number of x\'s and p(x)\'s must match'
 
-    #pollution = lagrange(x1, x2)
+        print('\nProcessing Lagrange Interpolation...\n')
+        progress_bar(20)
+        ans = lagrange(x, y)
+        print('\n\nans = {}\n\n'.format(ans))
 
-    # to-do:
-    #   calcular ponto central - onde se encontra a cidade
-    #   calcular grau de poluição da cidade a partir do resultado de lagrange 
+    @staticmethod
+    def gauss_seidel():
+        """
+        gauss_seidel Método para manipular a entrada do método Gauss-Seidel
+        
+        Este método recebe uma matrix quadrada do usuário e u vetor para aplicar
+        o método de Gauss-Seidel
+        """
+        A1 = []
+        b1 = []
+        print('\n\n' + '-'*20 + ' Gauss-Seidel method '  + '-'*20 + '\n\n')
+        n = int(input("Enter the square matrix A dimension(n x n):\n"))
+        assert n > 0, 'Matrix A dimension must be more than 0 (n > 0)'
+        for i in range(n):
+            A1.append(list(map(Decimal, input().split())))
+            assert len(A1[i]) == n, 'This is a square matrix! Try again...'
+        print('\nChecking dimensions of A...\n')
+        progress_bar(30)
+        print('\nOk, now enter the values of b vector of dimension ({} x 1):'.format(n))
+        
+        assert input() == '#', 'The input file format is wrong, see documentation'
+        
+        b1 = list(map(Decimal, input().split()))
+        assert len(b1) == n, 'b first dimension must be ({} x 1), got {}'.format(n, len(b1))
+
+        print('\nProcessing Gauss-Seidel...\n')
+        progress_bar(20)
+        pass
+        # X1 = GaussSeidel TODO
+
+        print('\nGot it!\n\nLet\'s check!\n')
+        # for i in range(n):
+        #     print('x{} ='.format(i), x1[i])
