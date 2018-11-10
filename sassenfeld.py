@@ -1,7 +1,17 @@
-from decimal import Decimal
+from decimal import Decimal, Context, setcontext, DivisionByZero, Underflow, Overflow
+
+setcontext(Context(traps=[DivisionByZero, Underflow, Overflow]))
 
 
 def check_convergence(A):
+    """Verifica convergêcia da matriz A
+    
+    Arguments:
+        A {list(list)} -- Matriz
+    
+    Returns:
+        Boolean -- True se o método converge, False senão
+    """
     n = len(A)
     A_modified = list(map(list, A))
     B = [Decimal(0.0) for _ in range(n)]
@@ -15,13 +25,18 @@ def check_convergence(A):
         for rows in range(row + 1, n):
             A_modified[rows][row] *= B[row]
 
-    if max(B) < 1:
-        return True
-    print(max(B))
-    return False
+    return max(B) < 1
 
 
 def sassenfeld(A):
+    """Modifica a matriz de entrada para uma possível convergência do método
+    
+    Arguments:
+        A {list(list)} -- Matriz
+    
+    Returns:
+        list(list), None -- Retorna a matriz moficada se foi possível fazer a convergêcia, senão retorna None
+    """
     n = len(A)
 
     if check_convergence(A):
@@ -43,4 +58,4 @@ def sassenfeld(A):
 
             A[a], A[b] = A[b], A[a]
 
-    return False
+    return None
