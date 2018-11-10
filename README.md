@@ -47,3 +47,48 @@ Trabalho 2 da disciplina de Cálculo Numérico: Sistemas Lineares e Interpolaç�
 - Descrever no título as alterações do fork em relação ao repositório oficial
 - "Create pull request" de novo
 - Esperar o merge :)
+
+### Formato do arquivo de input
+
+n
+
+a .. a a
+
+.
+
+.
+
+a .. a a
+
+
+a .. a a
+
+\#
+
+b .. b b
+
+\#\#
+
+n
+
+a .. a a
+
+.
+
+.
+
+a .. a a
+
+
+a .. a a
+
+\#
+
+b .. b b
+
+\#\#
+
+x .. x x
+
+
+y .. x x
