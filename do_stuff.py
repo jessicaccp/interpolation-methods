@@ -2,6 +2,7 @@ from gauss_seidel import gauss_seidel
 from lagrange import lagrange
 from lu_decomposition import lu_decomposition
 from sort_results import sort_results
+from gs_second_edition import gauss_seidel_se
 
 from decimal import Decimal
 
@@ -26,8 +27,8 @@ def do():
     eps = Decimal(input("Enter precision: "))
 
     x1 = lu_decomposition(A1, b1)
-    #x2 = gauss_seidel(A2, b2, eps)
-
+    x2 = gauss_seidel_se(samples, A2, b2, eps)
+    print(x2)
     #x1, x2 = sort_results(x1, x2)
 
     #pollution = lagrange(x1, x2)
