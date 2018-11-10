@@ -4,6 +4,7 @@ def gauss_seidel(n, A, b, eps, iter_max):
 
     # Percorre todas as linhas da matriz
     for i in range(0,n):
+        assert A[i][i] != 0
         r = 1/A[i][i]
 
         # percorre todas colunas da matriz
@@ -68,5 +69,5 @@ def teste_parada(n, x, v):
         # Verifica se o valor atual da norma do valor antigo de x e do mais atualizado é o maior do vetor
         if max_norma < abs(v[i] - x[i]):
             max_norma = abs(v[i] - x[i])
-    
+    assert max_x != 0
     return abs(max_norma / max_x)

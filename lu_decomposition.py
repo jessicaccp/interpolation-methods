@@ -5,19 +5,20 @@ def lu_decomposition(A, b):
     n = len(A)
     
     # Cria uma matriz L de tamanho nxn e uma matriz U que recebe o conteúdo da matriz A
-    L = [[Decimal(0.0)] * n for i in range(n)]
-    U = list(map(list, A))
+    L = [[Decimal(0.0)] * n for _ in range(n)]
 
+    U = A
     # Faz a fatoração, alterando os valores de L e U
     for pivot in range(n):
-        L[pivot][pivot] = 1.0
+        L[pivot][pivot] = Decimal(1.0)
         for row in range(pivot + 1, n):
+            assert U[pivot][pivot] != Decimal(0.0), 'Division By Zero on L.U.'
             L[row][pivot] = U[row][pivot] / U[pivot][pivot]
             for column in range(pivot, n):
                 U[row][column] -= L[row][pivot] * U[pivot][column]
     
-    x = [Decimal(0.0) for i in range(n)]
-    y = [Decimal(0.0) for i in range(n)]
+    x = [Decimal(0.0)] * n
+    y = [Decimal(0.0)] * n
 
     # Resolve L . y = b
     for row in range(n):
@@ -32,6 +33,7 @@ def lu_decomposition(A, b):
         for column in range(n - 1, -1, -1):
             if row == column:
                 x[row] += y[row]
+                assert U[row][column] != Decimal(0.0), 'Division By Zero on L.U.'
                 x[row] /= U[row][column]
                 break
             x[row] -= U[row][column] * x[column]

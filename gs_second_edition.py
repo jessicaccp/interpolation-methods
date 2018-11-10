@@ -9,9 +9,11 @@ def gauss_seidel_se(dimension, A, b, error):
     
   while iterations:
     for i in range(0, dimension):
+      assert A[i][i] != 0
       y[i] = (b[i] / A[i][i]) 
       for j in range(0, dimension):
         if i == j: continue
+        assert x[j] != 0
         y[i] -= (A[i][j] / A[i][i] * x[j])
         x[i] = y[i]
       aux[i].append(y[i])
@@ -25,13 +27,14 @@ def stop_test(aux, error):
   for i in range(0, len(aux)):
     max_difference = -1
     max_value = -1
-    aux[i].sort();
+    aux[i].sort()
     for j in range(i + 1, len(aux[i]) - 1):
       if abs(aux[i][j] - aux[i][j - 1]) > max_difference:
         max_difference = abs(aux[i][j] - aux[i][j - 1])
         max_value = abs(aux[i][j])
+    
+    assert max_value != 0
     if max_difference / max_value <= error:
       flag[i] = True
-  for f in flag:
-    if f == False: return False
-  return True  
+
+  return True in flag

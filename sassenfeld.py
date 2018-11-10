@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+
 def check_convergence(A):
     n = len(A)
     A_modified = list(map(list, A))
@@ -9,10 +10,8 @@ def check_convergence(A):
         for column in range(n):
             if row != column:
                 B[row] += abs(A_modified[row][column])
-        try:
+        if A_modified[row][row] != 0:
             B[row] /= abs(A_modified[row][row])
-        except:
-            pass
         for rows in range(row + 1, n):
             A_modified[rows][row] *= B[row]
 
@@ -20,6 +19,7 @@ def check_convergence(A):
         return True
     print(max(B))
     return False
+
 
 def sassenfeld(A):
     n = len(A)
@@ -40,7 +40,7 @@ def sassenfeld(A):
                         return A
                     for line in A:
                         line[c], line[d] = line[d], line[c]
-                    
+
             A[a], A[b] = A[b], A[a]
 
     return False
