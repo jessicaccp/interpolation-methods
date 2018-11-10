@@ -10,7 +10,7 @@ def gauss_seidel(A, b, eps):
     setcontext(Context(traps=[DivisionByZero, Underflow, Overflow]))
     # Verifica se a matriz converge
 
-    A_modified = sassenfeld(A)
+    A_modified, b_modified = sassenfeld(A, b)
 
     if A_modified is None:
         print('Convergence test failed')
@@ -25,7 +25,7 @@ def gauss_seidel(A, b, eps):
     # Vetor para os novos valores de x
     v = []
 
-    # Inicializa com zero os vetores de x inicial e x atualizado do mesmo tamanho do vetor b
+    # Inicializa com zero os vetores de x inicial e x atualizado do mesmo tamanho do vetor b_modified
     for i in range(n):
         x.append(Decimal(0.0))
         v.append(Decimal(0.0))
@@ -43,7 +43,7 @@ def gauss_seidel(A, b, eps):
 
         # Divide o elemento do vetor resposta pelo valor da diagonal da matriz
         # correspondente aquela linha
-        b[i] *= r
+        b_modified[i] *= r
 
     # Quantidade de iterações
     k = 0
@@ -73,7 +73,7 @@ def gauss_seidel(A, b, eps):
 
             # Calcula o valor de x mais atualizado com relação aquela linha
             # e o valor de y da linha
-            v[i] = b[i] - soma
+            v[i] = b_modified[i] - soma
 
         # Recebe o valor do critério de parada
         d = teste_parada(x, v)

@@ -77,7 +77,7 @@ class DoStuff:
 
         b2 = list(map(Decimal, input().split()))
         assert len(b2) == n, 'b first dimension must be ({} x 1), got {}'.format(
-            n, len(b1))
+            n, len(b2))
         assert input() == '##', 'The input file format is wrong, see documentation'
         print('\nOk, now enter the value of the error\n')
         error = Decimal(input())
@@ -98,9 +98,14 @@ class DoStuff:
 
         sorted_X1, sorted_X2 = sorted_tuple_list[0], sorted_tuple_list[1]
 
+        print('Points with their calculated pollution')
         for x in zip(sorted_X1, sorted_X2):
             print('{}----->{}'.format(round(float(x[0]), 5), round(float(x[1]), 5)))
 
         print('\nProcessing the interpolation...\n')
         progress_bar(20)
-        print('\nInterpolation value = ', lagrange(sorted_X1, sorted_X2))
+        pollution, midpoint = lagrange(sorted_X1, sorted_X2)
+
+        print('\nPoint of the city and its pollution')
+        print('{}----->{}'.format(round(float(midpoint), 5), round(float(pollution), 5)))
+
