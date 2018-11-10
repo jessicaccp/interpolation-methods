@@ -98,9 +98,14 @@ class DoStuff:
 
         sorted_X1, sorted_X2 = sorted_tuple_list[0], sorted_tuple_list[1]
 
+        print('Points with their calculated pollution')
         for x in zip(sorted_X1, sorted_X2):
             print('{}----->{}'.format(round(float(x[0]), 5), round(float(x[1]), 5)))
 
         print('\nProcessing the interpolation...\n')
         progress_bar(20)
-        print('\nInterpolation value = ', lagrange(sorted_X1, sorted_X2))
+        pollution, midpoint = lagrange(sorted_X1, sorted_X2)
+
+        print('\nPoint of the city and its pollution')
+        print('{}----->{}'.format(round(float(midpoint), 5), round(float(pollution), 5)))
+
