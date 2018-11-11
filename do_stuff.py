@@ -27,26 +27,24 @@ class DoStuff:
         """
         A1 = []
         b1 = []
-        print('\n\n' + '-'*20 + ' L.U. Decomposition ' + '-'*20 + '\n\n')
-        n = int(input("Enter the square matrix A dimension(n x n):\n"))
+        print('\n' + '-'*20 + ' L.U. Decomposition ' + '-'*20 + '\n')
+        n = int(input())
+        print("Reading the square matrix A1 ({} x {})...\n".format(n, n))
         assert n > 0, 'Matrix A dimension must be more than 0 (n > 0)'
-        print('\n\nEnter the matrix values:')
-        print('For example, for a 3x3 matrix:')
-        print('\n1 2 3\n4 5 6\n7 8 9\n\n')
         for i in range(n):
             A1.append(list(map(Decimal, input().split())))
             assert len(A1[i]) == n, 'This is a square matrix! Try again...'
-        print('\nChecking dimensions of A...\n')
+        print('Checking dimensions of A1...\n')
         progress_bar(30)
-        print('\nOk, now enter the values of b vector of dimension ({} x 1):'.format(n))
+        print('\nOk, now reading the values of b1 vector of dimension ({} x 1)...'.format(n))
 
         assert input() == '#', 'The input file format is wrong, see documentation'
 
         b1 = list(map(Decimal, input().split()))
-        assert len(b1) == n, 'b first dimension must be ({} x 1), got {}'.format(
+        assert len(b1) == n, 'b1 first dimension must be ({} x 1), got {}'.format(
             n, len(b1))
 
-        print('\nProcessing L.U. decomposition of A...\n')
+        print('\nProcessing L.U. decomposition of A1...\n')
         progress_bar(20)
         X1 = lu_decomposition(A1, b1)
 
@@ -65,47 +63,51 @@ class DoStuff:
         """
         A2 = []
         b2 = []
-        print('\n\n' + '-'*20 + ' Gauss-Seidel method ' + '-'*20 + '\n\n')
+        print('\n' + '-'*20 + ' Gauss-Seidel method ' + '-'*20 + '\n')
+
+        print("Reading the square matrix A2 ({} x {})...\n".format(n, n))
+
         for i in range(n):
             A2.append(list(map(Decimal, input().split())))
             assert len(A2[i]) == n, 'This is a square matrix! Try again...'
-        print('\nChecking dimensions of A...\n')
+        print('Checking dimensions of A2...\n')
         progress_bar(30)
-        print('\nOk, now enter the values of b vector of dimension ({} x 1):'.format(n))
+        print('\nOk, now reading the values of b2 vector of dimension ({} x 1)...'.format(n))
 
         assert input() == '#', 'The input file format is wrong, see documentation'
 
         b2 = list(map(Decimal, input().split()))
-        assert len(b2) == n, 'b first dimension must be ({} x 1), got {}'.format(
+        assert len(b2) == n, 'b2 first dimension must be ({} x 1), got {}'.format(
             n, len(b2))
         assert input() == '##', 'The input file format is wrong, see documentation'
-        print('\nOk, now enter the value of the error\n')
-        error = Decimal(input())
-        print('\nProcessing Gauss-Seidel...\n')
+        print('\nOk, now reading the value of the epsilon...\n')
+        eps = Decimal(input())
+        print('Processing Gauss-Seidel...\n')
         progress_bar(20)
-        X2 = gauss_seidel(A2, b2, error)
+        X2 = gauss_seidel(A2, b2, eps)
 
         print('\nGot it!\n\nLet\'s check!\n')
         for i in range(n):
-            print('x{} ='.format(i), X2[i])
+            print('x{} ='.format(i), round(X2[i], 5))
 
     @staticmethod
     def lagrange():
-        print('\n\n' + '-'*20 + ' Lagrange interpolation method ' + '-'*20 + '\n\n')
+        print('\n' + '-'*20 + ' Lagrange interpolation method ' + '-'*20 + '\n')
         tuple_list = list(zip(X1, X2))
 
         sorted_tuple_list = list(zip(*sorted(tuple_list)))
 
         sorted_X1, sorted_X2 = sorted_tuple_list[0], sorted_tuple_list[1]
 
-        print('Points with their calculated pollution')
+        print('Points with their calculated pollution:')
         for x in zip(sorted_X1, sorted_X2):
-            print('{}----->{}'.format(round(float(x[0]), 5), round(float(x[1]), 5)))
+            print('{}\t-----> {}'.format(round(float(x[0]), 5), round(float(x[1]), 5)))
 
         print('\nProcessing the interpolation...\n')
         progress_bar(20)
         pollution, midpoint = lagrange(sorted_X1, sorted_X2)
 
-        print('\nPoint of the city and its pollution')
-        print('{}----->{}'.format(round(float(midpoint), 5), round(float(pollution), 5)))
+        print('\nGot it!\n\nLet\'s check!\n')
+        print('Point of the city and its pollution:')
+        print('{}\t-----> {}\n'.format(round(float(midpoint), 5), round(float(pollution), 5)))
 
