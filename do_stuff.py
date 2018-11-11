@@ -1,7 +1,6 @@
 from gauss_seidel import gauss_seidel
 from lagrange import lagrange
 from lu_decomposition import lu_decomposition
-from sort_results import sort_results
 from utils import progress_bar
 
 from decimal import Decimal, Context, setcontext, ROUND_UP
